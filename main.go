@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fiberJWTAuth/config"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
@@ -8,10 +9,13 @@ import (
 func main() {
 	app := fiber.New()
 	app.Use(logger.New())
+	config.Connect()
 
-	app.Get("/", func(ctx *fiber.Ctx) error {
-		return ctx.SendString("hello")
-	})
+	app.Post("/login", Login)
+	//app.Post("/login", Login)
+	//app.Post("/login", Login)
 
 	app.Listen(":8080")
+
+	//config.Connect()
 }
