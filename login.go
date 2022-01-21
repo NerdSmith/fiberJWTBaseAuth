@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fiberJWTAuth/entities"
 	"fiberJWTAuth/search"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
@@ -22,7 +23,7 @@ type LoginRequestBody struct {
 
 func Login(c *fiber.Ctx) error {
 	loginBody := new(LoginRequestBody)
-	var userEntry = new(search.UserEntry)
+	var userEntry = new(entities.UserReqEntry)
 	c.BodyParser(userEntry)
 	fmt.Println(search.GetUser(userEntry))
 

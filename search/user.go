@@ -6,22 +6,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type UserEntry struct {
-	ID       uint
-	Username string
-}
-
-func GetUser(userEntry *UserEntry) (*entities.BaseUser, error) {
+func GetUser(userEntry *entities.UserReqEntry) (*entities.BaseUser, error) {
 	var user entities.BaseUser
-	//userEntry := new(UserEntry)
-	//
-	//if err := c.BodyParser(userEntry); err != nil {
-	//	return &user, fiber.ErrNotFound
-	//}
 
 	var result = config.Database.
 		Where("id = ?", userEntry.ID).
 		Or("username = ?", userEntry.Username).
+		Or("email = ?", userEntry.Email).
 		Find(&user)
 
 	if result.RowsAffected == 0 {
