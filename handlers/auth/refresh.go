@@ -21,7 +21,7 @@ func parseRefreshToken(reqRefreshToken string) (*jwt.Token, error) {
 	return rToken, err
 }
 
-func createNewAccessTokenByUserID(userID uint) (string, error) {
+func regenAccessToken(userID uint) (string, error) {
 	reqUser := new(entities.UserReqEntry)
 	JWTokenDetails := new(entities.JWTokenDetails)
 	reqUser.ID = userID
@@ -59,7 +59,7 @@ func Refresh(c *fiber.Ctx) error {
 		return c.SendStatus(fiber.StatusUnprocessableEntity)
 	}
 
-	newAccessToken, err := createNewAccessTokenByUserID(uint(userID))
+	newAccessToken, err := regenAccessToken(uint(userID))
 	if err != nil {
 		return c.SendStatus(fiber.StatusUnprocessableEntity)
 	}
