@@ -10,14 +10,14 @@ import (
 func main() {
 	app := fiber.New()
 	app.Use(logger.New())
-	config.Connect()
+	err := config.Connect()
+	if err != nil {
+		panic(err)
+	}
 
-	app.Post("/login", Login)
 	app.Post("/signup", auth.Signup)
-	//app.Post("/login", Login)
-	//app.Post("/login", Login)
+	app.Post("/login", auth.Login)
+	app.Post("/refresh", auth.Refresh)
 
 	app.Listen(":8080")
-
-	//config.Connect()
 }
